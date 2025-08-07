@@ -1,0 +1,14 @@
+name: 559-dev
+
+services:
+  dind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+#    extra_hosts:
+#      - dev.yossoi.com:127.0.0.1
+#    ports:
+#      - 443:443
+#    environment:
+#      - DOCKER_TLS_CERTDIR=/certs 
