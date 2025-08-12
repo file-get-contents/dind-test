@@ -1,3 +1,4 @@
+#FROM debian:bookworm-slim AS host
 FROM debian:bookworm-slim AS host
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
@@ -40,11 +41,8 @@ ARG HOME_DIR=/home/${NON_ROOT}
 RUN groupadd -g ${GID} ${NON_ROOT} \
     && useradd -u ${UID} -g ${NON_ROOT} -s /bin/bash -b /home -m ${NON_ROOT}
     
-    
-USER ${NON_ROOT}
-WORKDIR /usr/bin
-RUN  dockerd-rootless-setuptool.sh install --skip-iptables
 
+#USER ${NON_ROOT}
 #RUN  /usr/bin/dockerd-rootless-setuptool.sh install --skip-iptables
 
 #USER root
@@ -52,9 +50,12 @@ RUN  dockerd-rootless-setuptool.sh install --skip-iptables
 #    && modprobe ip_tables
 COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 #ENTRYPOINT [ "bash", "-c", "$HOME/entrypoint.sh" ]
+
+#USER ${NON_ROOT}
+#ENV XDG_RUNTIME_DIR=/home/${NON_ROOT}/.docker/run
+#ENV DOCKER_HOST=unix:///home/${NON_ROOT}/.docker/run/docker.sock
+
 ENTRYPOINT [ "bash", "-c", "while :; do sleep 10; done" ]
-
-
 #https://github.com/file-get-contents/559.git
 
 
