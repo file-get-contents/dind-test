@@ -13,6 +13,7 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
+#        linux-image-generic \
         ca-certificates \
         curl \
         git \
@@ -24,9 +25,6 @@ RUN apt-get update -y \
         kmod
 
 
-
-#root@76114476bc53:/# modprobe ip_tables
-#modprobe: FATAL: Module ip_tables not found in directory /lib/modules/6.10.14-linuxkit
 
 #RUN curl -fsSL https://get.docker.com/rootless | SKIP_IPTABLES=1  sh 
 

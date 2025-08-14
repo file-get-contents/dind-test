@@ -29,6 +29,7 @@ RUN apt-get update -y \
 
 RUN update-ca-certificates
 
+
 #https://github.com/microsoft/WSL/issues/7466
 #RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
 #    && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
@@ -44,7 +45,7 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 
 #USER ${NON_ROOT}
 #RUN  /usr/bin/dockerd-rootless-setuptool.sh install --skip-iptables
-
+# insmod /lib/modules/`uname -r`/kernel/net/ipv4/netfilter/ip_tables.ko
 #USER root
 #RUN modprobe nf_tables \
 #    && modprobe ip_tables
