@@ -1,4 +1,8 @@
 # dind-test
+
+[rootless mode](https://docs.docker.com/engine/security/rootless/)
+
+
 ```
 // terminal
 docker compose up --build
