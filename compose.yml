@@ -8,4 +8,4 @@ services:
     privileged: true
     tty: true
     init: true
-
+    network_mode: host

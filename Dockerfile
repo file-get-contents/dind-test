@@ -1,7 +1,6 @@
 #FROM docker:28.3.3-dind-rootless as host
 
 
-#FROM debian:trixie-slim AS host
 FROM debian:trixie AS host
 
 ARG GID=1000
@@ -14,9 +13,10 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
 #        linux-image-generic \
+#        linux-source \
         ca-certificates \
         curl \
-        git \
+#        git \
         #for rootless
         dbus-user-session \ 
         slirp4netns \
@@ -28,7 +28,8 @@ RUN apt-get update -y \
 
 #RUN curl -fsSL https://get.docker.com/rootless | SKIP_IPTABLES=1  sh 
 
-#COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
+COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . /app
+WORKDIR /app
 
 #CMD [ "bash", "-c", "while :; do sleep 10; done" ]
 CMD ["bash"]
