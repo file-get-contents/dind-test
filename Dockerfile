@@ -12,11 +12,8 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \
-#        linux-image-generic \
-#        linux-source \
         ca-certificates \
         curl \
-#        git \
         #for rootless
         dbus-user-session \ 
         slirp4netns \
