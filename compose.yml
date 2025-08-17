@@ -7,5 +7,4 @@ services:
       target: host
     privileged: true
     tty: true
-    init: true
     network_mode: host
