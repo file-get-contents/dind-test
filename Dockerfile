@@ -1,17 +1,14 @@
-FROM debian:trixie-slim AS host
+#FROM debian:trixie-slim AS host
+FROM debian:bookworm-slim AS host
+RUN sed -i 's@^URIs: http://deb.debian.org/debian$@URIs: http://ftp.jp.debian.org/debian@' /etc/apt/sources.list.d/debian.sources
+
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
         git \
-        #for rootless
-        dbus-user-session \ 
-        slirp4netns \
-        uidmap \
-        kmod \
-        # https://wiki.nftables.org/wiki-nftables/index.php/Building_and_installing_nftables_from_sources
-        libmnl \
-        libnftnl 
+        fuse-overlayfs
 
 
 RUN install -m 0755 -d /etc/apt/keyrings \
@@ -31,32 +28,24 @@ RUN apt-get update \
         docker-compose-plugin 
 #    && sed -i 's/ulimit -Hn/# ulimit -Hn/g' /etc/init.d/docker 
 
-RUN update-ca-certificates
-
-
-#https://github.com/microsoft/WSL/issues/7466
-#RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
-#    && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-
-ARG GID=1000
-ARG UID=${GID}
-ARG NON_ROOT=dinder
-ARG HOME_DIR=/home/${NON_ROOT}
-
-RUN groupadd -g ${GID} ${NON_ROOT} \
-    && useradd -u ${UID} -g ${NON_ROOT} -s /bin/bash -b /home -m ${NON_ROOT}
-    
+#RUN update-ca-certificates
+#
+#
+#ARG GID=1000
+#ARG UID=${GID}
+#ARG NON_ROOT=dinder
+#ARG HOME_DIR=/home/${NON_ROOT}
+#
+#RUN groupadd -g ${GID} ${NON_ROOT} \
+#    && useradd -u ${UID} -g ${NON_ROOT} -s /bin/bash -b /home -m ${NON_ROOT}
+#    
 
 #USER ${NON_ROOT}
-#RUN  /usr/bin/dockerd-rootless-setuptool.sh install --skip-iptables
-# insmod /lib/modules/`uname -r`/kernel/net/ipv4/netfilter/ip_tables.ko
 #USER root
-#RUN modprobe nf_tables \
-#    && modprobe ip_tables
-COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
+#COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 
 #USER ${NON_ROOT}
-
-ENTRYPOINT [ "bash", "-c", "while :; do sleep 10; done" ]
+#ENTRYPOINT [ "dockerd" ]
+#ENTRYPOINT [ "bash", "-c", "while :; do sleep 10; done" ]
 #https://github.com/file-get-contents/559.git
 
