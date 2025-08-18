@@ -1,6 +1,6 @@
 #FROM debian:trixie-slim AS host
 FROM debian:bookworm-slim AS host
-RUN sed -i 's@^URIs: http://deb.debian.org/debian$@URIs: http://ftp.jp.debian.org/debian@' /etc/apt/sources.list.d/debian.sources
+RUN sed -i 's|^URIs: http://deb.debian.org/debian$|URIs: http://ftp.jp.debian.org/debian|' /etc/apt/sources.list.d/debian.sources
 
 
 RUN apt-get update \
