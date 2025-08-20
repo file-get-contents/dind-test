@@ -6,5 +6,9 @@ services:
       dockerfile: Dockerfile
       target: host
     privileged: true
+    extra_hosts:
+      - dev.yossoi.com=191.168.0.1
     tty: true
+    ports:
+      - "8080:80"
     network_mode: host

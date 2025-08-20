@@ -1,12 +1,15 @@
-FROM debian:trixie-slim AS host
-RUN sed -i 's|^URIs: http://deb.debian.org/debian$|URIs: http://ftp.jp.debian.org/debian|' /etc/apt/sources.list.d/debian.sources
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        git \
-        apache2 \
-        fuse-overlayfs
+FROM httpd:2.4.65-trixie AS host
+#RUN sed -i 's|^URIs: http://deb.debian.org/debian$|URIs: http://ftp.jp.debian.org/debian|' /etc/apt/sources.list.d/debian.sources
+#RUN apt-get update \
+#    && apt-get install -y --no-install-recommends \
+#        ca-certificates \
+#        curl \
+#        git \
+#        fuse-overlayfs
+#
+#RUN apt-get update && apt-get install -y curl
+COPY ./conf /usr/local/apache2/conf
+
 
 #####################################################
 # install docker                                    #
@@ -70,4 +73,3 @@ COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 #USER ${NON_ROOT}
 #ENTRYPOINT [ "dockerd" ]
 #ENTRYPOINT [ "bash", "-c", "while :; do sleep 10; done" ]
-
