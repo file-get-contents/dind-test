@@ -6,8 +6,9 @@
 		"../compose.yml"
 	],
 	"service": "dind",
+	"privileged": true,
+	"init": true,
 	"workspaceFolder": "/home"
-
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 
 	

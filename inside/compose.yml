@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: inside.Dockerfile
       target: go-delivery
+#    volumes: /run/docker.sock:/run/docker.sock
+
 #    command: ["/run/app"]
 #    ports:
 #      - "3000:3000"

@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       target: host
     privileged: true
+    init: true
 #    extra_hosts:
 #      - dev.yossoi.com=191.168.0.1
     tty: true
-    
