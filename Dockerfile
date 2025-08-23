@@ -52,13 +52,7 @@ RUN apt-get update \
 #    && rm -R *
 #ENV PATH=$PATH:/usr/local/go/bin
 
-
-
 #RUN update-ca-certificates
-
-
-#RUN cp -au /var/lib/docker /var/lib/docker.bk 
-#RUN echo '{"storage-driver": "overlay2"}' > /etc/docker/daemon.json
 
 
 ARG GID=1000
@@ -72,5 +66,4 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 
 #USER ${NON_ROOT}
-#ENTRYPOINT [ "dockerd", "-l", "warn", "--storage-driver", "overlay2", "--storage-opt", "overlay2.size=1G" ]
-ENTRYPOINT [ "dockerd", "-l", "warn",  "--storage-driver", "fuse-overlayfs"]
+ENTRYPOINT [ "dockerd", "--log-level", "warn", "--storage-driver", "fuse-overlayfs"]

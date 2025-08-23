@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: inside.Dockerfile
       target: go-delivery
-#    volumes: /run/docker.sock:/run/docker.sock
+    mem_limit: 1g
 
 #    command: ["/run/app"]
 #    ports:
@@ -16,3 +16,7 @@ services:
 #        - action: sync+restart
 #          path: ./go-backend/run/app
 #          target: /run/app
+
+
+
+## failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: unable to apply cgroup configuration: cannot enter cgroupv2 "/sys/fs/cgroup/docker" with domain controllers -- it is in an invalid state: unknown

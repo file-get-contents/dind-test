@@ -1,3 +1,6 @@
+volumes:
+  sources:
+
 services:
   dind:
     container_name: dind
@@ -7,6 +10,15 @@ services:
       target: host
     privileged: true
     init: true
+    tty: true
+    cap_add:
+      - ALL
+    volumes:
+      - sources:/home/dinder
 #    extra_hosts:
 #      - dev.yossoi.com=191.168.0.1
-    tty: true
+#    mem_limit: 1g
+#    memswap_limit: 1g
+#    storage_opt:
+#      size: '5G'
+

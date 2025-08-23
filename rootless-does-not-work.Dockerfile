@@ -18,6 +18,9 @@ FROM debian:trixie AS host
 #        iptables \
 #        kmod
 #
+# update-alternatives --set iptables /usr/sbin/iptables-legacy
+# update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+#
 #
 ##RUN curl -fsSL https://get.docker.com/rootless | SKIP_IPTABLES=1  sh 
 #
