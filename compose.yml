@@ -6,7 +6,7 @@ services:
     container_name: dind
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: language.Dockerfile
       target: host
     privileged: true
     init: true
