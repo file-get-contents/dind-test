@@ -73,7 +73,7 @@ COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 
 
 
-dockerd --storage-driver vfs --storage-opt ["size=1G"]
+dockerd --storage-driver vfs
 
 fuse-overlayfs をインストールすると docker run hello-world でこける。
 fuse-overlayfs をインストールしないと dockerd コマンドで起動した際に下記エラーが発生する。エラーが発生しても子コンテナの実行はできる。
