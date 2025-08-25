@@ -1,2 +1,0 @@
-docker compose up --build
-docker compose down --rmi all --volumes --remove-orphans
