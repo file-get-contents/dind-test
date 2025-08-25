@@ -6,15 +6,14 @@ services:
     container_name: dind
     build:
       context: .
-      dockerfile: language.Dockerfile
+      dockerfile: Dockerfile
       target: host
     privileged: true
     init: true
     tty: true
-    cap_add:
-      - ALL
     volumes:
       - sources:/home/dinder
+#    network_mode: host
 #    extra_hosts:
 #      - dev.yossoi.com=191.168.0.1
 #    mem_limit: 1g

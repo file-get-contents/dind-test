@@ -3,11 +3,12 @@ RUN sed -i 's|^URIs: http://deb.debian.org/debian$|URIs: http://ftp.jp.debian.or
 RUN apt-get update\
     && DEBIAN_FRONTEND=noninteractive  apt-get install -y --no-install-recommends \
         ca-certificates \
-        curl
-
+        curl 
 
 
 FROM debian-base AS host
+
+
 #RUN apt-get update -y\
 #    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 #        git \
@@ -68,14 +69,4 @@ RUN groupadd -g ${GID} ${NON_ROOT} \
 COPY --chown=${NON_ROOT}:${NON_ROOT} --chmod=770 . ${HOME_DIR}
 
 #USER ${NON_ROOT}
-#ENTRYPOINT [ "dockerd", "--log-level", "warn", "--storage-driver", "fuse-overlayfs"]
-
-
-
-
-dockerd --storage-driver vfs
-
-fuse-overlayfs をインストールすると docker run hello-world でこける。
-fuse-overlayfs をインストールしないと dockerd コマンドで起動した際に下記エラーが発生する。エラーが発生しても子コンテナの実行はできる。
-ERRO[2025-08-24T20:38:22.221625542Z] failed to mount overlay: invalid argument     storage-driver=overlay2
-ERRO[2025-08-24T20:38:22.221695959Z] exec: "fuse-overlayfs": executable file not found in $PATH  storage-driver=fuse-overlayfs
+CMD [ "dockerd", "--log-level", "warn", "--storage-driver", "vfs"]
