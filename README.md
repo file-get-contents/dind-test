@@ -1,4 +1,4 @@
-# docker in docker was failed. 
+# failure docker in docker. 
 
 ## purpose 
 host(mba) runs development container and development container is watched by delivery container by compose.watch .  
